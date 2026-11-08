@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Two Faces of "Free" | Open Source vs. Piracy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* =====================================================================
+       EDITORIAL PRESENTATION SYSTEM
+       Centered Interstitial Bridge Slides • Instant Impact on Key Slides
+       ===================================================================== */
+    :root {
+      --bg-dark: #07090F;
+      --card-base: #111524;
+      --card-border: rgba(255, 255, 255, 0.14);
+
+      /* Semantic Theme Colors */
+      --color-mint: #00F59B;
+      --color-crimson: #FF2A6D;
+      --color-gold: #FFB703;
+      --color-cyan: #00E5FF;
+      --color-lavender: #A78BFA;
+
+      --text-white: #FFFFFF;
+      --text-subtle: #F1F5F9;
+
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --spring: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      font-family: var(--font-display);
+      color: var(--text-white);
+      cursor: default;
+    }
+
+    /* Living Canvas Background */
+    #bg-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ambient-atmosphere {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      transition: background 1.2s var(--spring);
+      opacity: 0.75;
+    }
+
+    /* 16:9 Stage */
+    #viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1600px;
+      z-index: 10;
+    }
+
+    #stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: center center;
+      transform-style: preserve-3d;
+      flex-shrink: 0;
+    }
+
+    /* Slide Engine */
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 80px 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform-style: preserve-3d;
+      transition: all 0.75s var(--spring);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: none !important;
+    }
+
+    /* Interstitial Centered Bridge Slide Styling */
+    .slide.bridge-slide {
+      align-items: center;
+      text-align: center;
+      padding: 100px 180px;
+    }
+
+    .bridge-content-wrap {
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bridge-giant-question {
+      font-size: 74px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.18;
+      color: #FFFFFF;
+      margin-bottom: 0;
+      text-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
+    }
+
+    .bridge-sub-thought {
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      line-height: 1.45;
+      max-width: 950px;
+      margin-bottom: 44px;
+    }
+
+    /* Transitions */
+    .tr-zoom.prev {
+      opacity: 0;
+      transform: scale(1.15) translateZ(180px);
+    }
+
+    .tr-zoom {
+      transform: scale(0.85) translateZ(-180px);
+    }
+
+    .tr-clash.prev {
+      opacity: 0;
+      transform: rotateY(-15deg) scale(0.94);
+    }
+
+    .tr-clash {
+      transform: rotateY(15deg) scale(0.94);
+    }
+
+    .tr-conveyor.prev {
+      opacity: 0;
+      transform: translateX(-160px) scale(0.96);
+    }
+
+    .tr-conveyor {
+      transform: translateX(160px) scale(0.96);
+    }
+
+    .tr-pop.prev {
+      opacity: 0;
+      transform: scale(0.88) rotate(-2deg);
+    }
+
+    .tr-pop {
+      transform: scale(0.88) rotate(2deg);
+    }
+
+    .tr-drop.prev {
+      opacity: 0;
+      transform: translateY(-90px) scale(0.95);
+    }
+
+    .tr-drop {
+      transform: translateY(90px) scale(0.95);
+    }
+
+    .tr-flip.prev {
+      opacity: 0;
+      transform: rotateX(16deg) translateY(-50px);
+    }
+
+    .tr-flip {
+      transform: rotateX(-16deg) translateY(50px);
+    }
+
+    .tr-pan.prev {
+      opacity: 0;
+      transform: translateX(-140px);
+    }
+
+    .tr-pan {
+      transform: translateX(140px);
+    }
+
+    .tr-unfold.prev {
+      opacity: 0;
+      transform: scaleY(0.9) translateY(-40px);
+    }
+
+    .tr-unfold {
+      transform: scaleY(0.9) translateY(40px);
+    }
+
+    .tr-depth.prev {
+      opacity: 0;
+      transform: translateZ(280px) scale(1.1);
+    }
+
+    .tr-depth {
+      transform: translateZ(-280px) scale(0.88);
+    }
+
+    .tr-alert.prev {
+      opacity: 0;
+      transform: scale(0.92) rotate(-3deg);
+    }
+
+    .tr-alert {
+      transform: scale(0.92) rotate(3deg);
+    }
+
+    .tr-warp.prev {
+      opacity: 0;
+      transform: scale(1.1) translateY(-40px);
+    }
+
+    .tr-warp {
+      transform: scale(0.92) translateY(40px);
+    }
+
+    /* Selective Step Reveal Engine */
+    .step-reveal {
+      opacity: 0;
+      transform: translateY(28px) scale(0.97);
+      pointer-events: none;
+      transition: opacity 0.5s var(--spring), transform 0.5s var(--spring);
+    }
+
+    .step-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Badges & Pills */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 22px;
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      width: fit-content;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .pill-mint {
+      background: rgba(0, 245, 155, 0.15);
+      border: 1.5px solid var(--color-mint);
+      color: var(--color-mint);
+    }
+
+    .pill-crimson {
+      background: rgba(255, 42, 109, 0.15);
+      border: 1.5px solid var(--color-crimson);
+      color: var(--color-crimson);
+    }
+
+    .pill-gold {
+      background: rgba(255, 183, 3, 0.15);
+      border: 1.5px solid var(--color-gold);
+      color: var(--color-gold);
+    }
+
+    .pill-cyan {
+      background: rgba(0, 229, 255, 0.15);
+      border: 1.5px solid var(--color-cyan);
+      color: var(--color-cyan);
+    }
+
+    .pill-neutral {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--card-border);
+      color: #FFFFFF;
+    }
+
+    h1.hero-title {
+      font-size: 88px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: #FFFFFF;
+    }
+
+    h2.slide-heading {
+      font-size: 64px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      color: #FFFFFF;
+    }
+
+    p.lead-subtext {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      line-height: 1.45;
+      max-width: 1080px;
+    }
+
+    .mint-glow {
+      color: var(--color-mint);
+      text-shadow: 0 0 30px rgba(0, 245, 155, 0.5);
+    }
+
+    .crimson-glow {
+      color: var(--color-crimson);
+      text-shadow: 0 0 30px rgba(255, 42, 109, 0.5);
+    }
+
+    .gold-glow {
+      color: var(--color-gold);
+      text-shadow: 0 0 30px rgba(255, 183, 3, 0.5);
+    }
+
+    .cyan-glow {
+      color: var(--color-cyan);
+      text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+    }
+
+    /* Cards */
+    .deck-grid {
+      display: grid;
+      gap: 32px;
+      margin-top: 40px;
+      width: 100%;
+      overflow: visible;
+    }
+
+    .cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .clean-card {
+      background: var(--card-base);
+      border: 1.5px solid var(--card-border);
+      border-radius: 24px;
+      padding: 42px 38px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+      transition: transform 0.35s var(--spring), border-color 0.35s ease, box-shadow 0.35s ease;
+      overflow: visible;
+    }
+
+    .clean-card:hover {
+      transform: translateY(-8px) scale(1.015);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .card-mint-edge:hover {
+      border-color: var(--color-mint);
+      box-shadow: 0 24px 60px rgba(0, 245, 155, 0.22);
+    }
+
+    .card-crimson-edge:hover {
+      border-color: var(--color-crimson);
+      box-shadow: 0 24px 60px rgba(255, 42, 109, 0.22);
+    }
+
+    .card-gold-edge:hover {
+      border-color: var(--color-gold);
+      box-shadow: 0 24px 60px rgba(255, 183, 3, 0.22);
+    }
+
+    .card-cyan-edge:hover {
+      border-color: var(--color-cyan);
+      box-shadow: 0 24px 60px rgba(0, 229, 255, 0.22);
+    }
+
+    .icon-square {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .is-mint {
+      background: rgba(0, 245, 155, 0.15);
+      color: var(--color-mint);
+      border: 1.5px solid var(--color-mint);
+      box-shadow: 0 0 20px rgba(0, 245, 155, 0.3);
+    }
+
+    .is-crimson {
+      background: rgba(255, 42, 109, 0.15);
+      color: var(--color-crimson);
+      border: 1.5px solid var(--color-crimson);
+      box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+    }
+
+    .is-gold {
+      background: rgba(255, 183, 3, 0.15);
+      color: var(--color-gold);
+      border: 1.5px solid var(--color-gold);
+      box-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
+    }
+
+    .is-cyan {
+      background: rgba(0, 229, 255, 0.15);
+      color: var(--color-cyan);
+      border: 1.5px solid var(--color-cyan);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+    }
+
+    .card-heading-lg {
+      font-size: 34px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .card-body-white {
+      font-size: 23px;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 1.55;
+    }
+
+    .card-body-white strong {
+      color: #FFFFFF;
+      text-decoration: underline;
+      text-decoration-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .card-action-pill {
+      margin-top: 24px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: #080C14;
+      border: 1px solid var(--card-border);
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      width: fit-content;
+      color: var(--color-mint);
+    }
+
+    /* Full-Bleed Highlight Banner (Slide 6) */
+    .feature-banner {
+      background: linear-gradient(135deg, rgba(255, 42, 109, 0.15) 0%, #111524 100%);
+      border: 2px solid var(--color-crimson);
+      border-radius: 26px;
+      padding: 56px 64px;
+      margin-top: 40px;
+      box-shadow: 0 30px 80px rgba(255, 42, 109, 0.25);
+    }
+
+    /* DVD Jon Dossier Layout (Slide 8) */
+    .dvd-jon-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+      align-items: center;
+      margin-top: 36px;
+      padding: 44px;
+      overflow: visible;
+    }
+
+    .jon-photo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .jon-photo {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 2px solid var(--color-gold);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 183, 3, 0.35);
+    }
+
+    .jon-photo-caption {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-gold);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    /* Accurate 90% Donut Gauge (Slide 5 - Instant Show) */
+    .donut-layout {
+      display: flex;
+      align-items: center;
+      gap: 70px;
+      margin-top: 36px;
+      overflow: visible;
+    }
+
+    .donut-gauge-box {
+      width: 360px;
+      height: 360px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: visible;
+    }
+
+    .donut-svg-canvas {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+      overflow: visible;
+    }
+
+    .donut-track-ring {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 34;
+    }
+
+    .donut-fill-meter {
+      fill: none;
+      stroke: var(--color-mint);
+      stroke-width: 34;
+      stroke-linecap: round;
+      stroke-dasharray: 816.8;
+      stroke-dashoffset: 81.7;
+      /* EXACT 90% IMMEDIATELY VISIBLE */
+      filter: drop-shadow(0 0 24px rgba(0, 245, 155, 0.85));
+    }
+
+    /* P2P Swarm Network Card (Slide 10) */
+    .swarm-network-box {
+      background: #0B0E18;
+      border: 1.5px solid var(--color-crimson);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      overflow: visible;
+    }
+
+    /* Progress Stat Bars (Slide 7) */
+    .stat-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-top: 36px;
+      width: 100%;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-top-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 24px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .stat-bar-track {
+      height: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    .stat-fill-bar {
+      height: 100%;
+      border-radius: 11px;
+      width: 0%;
+      transition: width 1.3s var(--spring);
+    }
+
+    .slide.active .stat-item.revealed .fill-mint {
+      width: 71%;
+      background: var(--color-mint);
+      box-shadow: 0 0 20px rgba(0, 245, 155, 0.6);
+    }
+
+    .slide.active .stat-item.revealed .fill-gold {
+      width: 54%;
+      background: var(--color-gold);
+      box-shadow: 0 0 20px rgba(255, 183, 3, 0.6);
+    }
+
+    .slide.active .stat-item.revealed .fill-cyan {
+      width: 38%;
+      background: var(--color-cyan);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+    }
+
+    /* DeCSS Hacker Terminal (Slide 9) */
+    .terminal-container {
+      background: #080C14;
+      border: 2px solid var(--color-mint);
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 245, 155, 0.25);
+      overflow: hidden;
+      font-family: var(--font-mono);
+      width: 100%;
+    }
+
+    .terminal-topbar {
+      background: #111726;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .term-light {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+    }
+
+    .tl-red {
+      background: #FF2A6D;
+    }
+
+    .tl-yellow {
+      background: #FFB703;
+    }
+
+    .tl-green {
+      background: #00F59B;
+    }
+
+    .terminal-code {
+      padding: 32px;
+      font-size: 20px;
+      line-height: 1.8;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    /* Minimal Top Right Presenter HUD */
+    #presenter-badge {
+      position: fixed;
+      top: 36px;
+      right: 48px;
+      background: rgba(17, 21, 36, 0.9);
+      border: 1.5px solid var(--card-border);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: 0.08em;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /* Hit zones */
+    .hit-prev {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 15vw;
+      height: 100vh;
+      z-index: 99;
+      cursor: w-resize;
+    }
+
+    .hit-next {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 85vw;
+      height: 100vh;
+      z-index: 98;
+      cursor: e-resize;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Dynamic Living Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Ambient Backdrop Glow -->
+  <div class="ambient-atmosphere" id="ambient-lights"></div>
+
+  <!-- Presenter Tracker -->
+  <div id="presenter-badge">01 / 13</div>
+
+  <!-- Click zones -->
+  <div class="hit-prev" onclick="stepPrev()" title="Previous step / slide"></div>
+  <div class="hit-next" onclick="stepNext()" title="Next step / slide"></div>
+
+  <div id="viewport">
+    <div id="stage">
+
+      <!-- ===============================================================
+           SLIDE 1: Title (Shows immediately)
+           =============================================================== -->
+      <section class="slide active tr-zoom" data-slide-index="1" data-bgmode="nebula" data-steps="0">
+        <div>
+          <span class="badge-pill pill-mint">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+            Computer Science Presentation
+          </span>
+        </div>
+        <h1 class="hero-title">
+          The Two Faces of <br>
+          <span class="mint-glow">"FREE"</span>
+        </h1>
+        <p class="lead-subtext" style="font-size: 34px; margin-bottom: 36px;">
+          Open Source vs. Software Piracy: Why "free" on the internet is either a gift... or a crime.
+        </p>
+        <div>
+          <span class="badge-pill pill-neutral" style="font-size: 15px;">English &bull; Technology &bull; Society</span>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 2: Free Beer vs Free Speech (Has 2 Steps)
+           =============================================================== -->
+      <section class="slide tr-clash" data-slide-index="2" data-bgmode="split" data-steps="2">
+        <div>
+          <span class="badge-pill pill-gold">The Language Trap</span>
+          <h2 class="slide-heading">The "Free" Trap</h2>
+          <p class="lead-subtext">Two completely opposite things called by the exact same English word:</p>
+        </div>
+
+        <div class="deck-grid cols-2">
+          <!-- Step 1: Free Beer -->
+          <div class="clean-card card-crimson-edge step-reveal" data-step="1">
+            <div class="icon-square is-crimson">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                <line x1="7" y1="7" x2="7.01" y2="7" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">"Free Beer" (Gratis)</h3>
+            <p class="card-body-white">
+              Someone hands you a drink. <strong>You pay $0.</strong> You take it. But you don't know what's in it, you
+              didn't make it, and you cannot change it.
+            </p>
+            <div class="card-action-pill" style="color: var(--color-crimson); border-color: var(--color-crimson);">
+              Free as in Price &bull; Zero Control
+            </div>
+          </div>
+
+          <!-- Step 2: Free Speech -->
+          <div class="clean-card card-mint-edge step-reveal" data-step="2">
+            <div class="icon-square is-mint">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">"Free Speech" (Libre)</h3>
+            <p class="card-body-white">
+              Nobody tells you what to do! <strong>You get the full recipe.</strong> You can see how it works, rewrite
+              it, and share your version with everyone.
+            </p>
+            <div class="card-action-pill" style="color: var(--color-mint); border-color: var(--color-mint);">
+              Free as in Liberty &bull; Full Power
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 3: Open Source: The Good Guy (Has 3 Steps)
+           =============================================================== -->
+      <section class="slide tr-conveyor" data-slide-index="3" data-bgmode="nodes" data-steps="3">
+        <div>
+          <span class="badge-pill pill-mint">The Good Guy</span>
+          <h2 class="slide-heading">The Good Guy: Open Source</h2>
+          <p class="lead-subtext">This is "Free Speech". Imagine cooking food and giving everyone the recipe.</p>
+        </div>
+
+        <div class="deck-grid cols-3">
+          <div class="clean-card card-mint-edge step-reveal" data-step="1">
+            <div class="icon-square is-mint">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">100% Legal</h3>
+            <p class="card-body-white">
+              No cops, no lawsuits. The creator literally writes: <strong>"Take this code, use it, build something
+                cool."</strong>
+            </p>
+          </div>
+
+          <div class="clean-card card-mint-edge step-reveal" data-step="2">
+            <div class="icon-square is-mint">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">Zero Secrets</h3>
+            <p class="card-body-white">
+              You can read every line of code. <strong>No hidden tracking</strong>, no sneaky viruses. Everything is out
+              in the open.
+            </p>
+          </div>
+
+          <div class="clean-card card-mint-edge step-reveal" data-step="3">
+            <div class="icon-square is-mint">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">The Global Team</h3>
+            <p class="card-body-white">
+              If something breaks, <strong>random programmers across the world fix it for free</strong>. Millions of
+              strangers collaborating.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 4: How Strangers Work Together (Has 3 Steps)
+           =============================================================== -->
+      <section class="slide tr-conveyor" data-slide-index="4" data-bgmode="pipeline" data-steps="3">
+        <div>
+          <span class="badge-pill pill-mint">The 3-Step Loop</span>
+          <h2 class="slide-heading">How Strangers Work Together</h2>
+          <p class="lead-subtext">How does a random person help build the internet? In 3 steps:</p>
+        </div>
+
+        <div class="deck-grid cols-3">
+          <div class="clean-card card-mint-edge step-reveal" data-step="1">
+            <div
+              style="font-family: var(--font-mono); font-size: 42px; font-weight: 900; color: var(--color-mint); margin-bottom: 8px;">
+              01</div>
+            <h3 class="card-heading-lg">You Write Code</h3>
+            <p class="card-body-white">
+              You find an annoying bug on your PC, open your laptop at night, and write 10 lines of code to fix it.
+            </p>
+            <div class="card-action-pill">git commit -m "fixed it lol"</div>
+          </div>
+
+          <div class="clean-card card-mint-edge step-reveal" data-step="2">
+            <div
+              style="font-family: var(--font-mono); font-size: 42px; font-weight: 900; color: var(--color-mint); margin-bottom: 8px;">
+              02</div>
+            <h3 class="card-heading-lg">Push to GitHub</h3>
+            <p class="card-body-white">
+              GitHub is essentially <strong>social media for nerds</strong>. You post your fix online for everyone to
+              see.
+            </p>
+            <div class="card-action-pill">git push origin main</div>
+          </div>
+
+          <div class="clean-card card-mint-edge step-reveal" data-step="3">
+            <div
+              style="font-family: var(--font-mono); font-size: 42px; font-weight: 900; color: var(--color-mint); margin-bottom: 8px;">
+              03</div>
+            <h3 class="card-heading-lg">Owner Merges It</h3>
+            <p class="card-body-white">
+              You ask: <em>"Hey, merge my fix?"</em> The owner clicks Accept. <strong>Your code is now on 50 million
+                phones.</strong>
+            </p>
+            <div class="card-action-pill" style="color: var(--color-mint);">Status: PR Merged &check;</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 5: Plot Twist: Your Entire Life (SHOWS IMMEDIATELY, NO STEPS)
+           =============================================================== -->
+      <section class="slide tr-pop" data-slide-index="5" data-bgmode="pulse" data-steps="0">
+        <div>
+          <span class="badge-pill pill-gold">Shocking Truth</span>
+          <h2 class="slide-heading">Plot Twist: Your Entire Life</h2>
+          <p class="lead-subtext">Open source isn't just a hobby—literally the entire internet runs on it:</p>
+        </div>
+
+        <div class="donut-layout">
+          <!-- Donut gauge appears immediately -->
+          <div class="donut-gauge-box">
+            <svg class="donut-svg-canvas" viewBox="0 0 320 320">
+              <circle class="donut-track-ring" cx="160" cy="160" r="130"></circle>
+              <circle class="donut-fill-meter" cx="160" cy="160" r="130"></circle>
+            </svg>
+            <div
+              style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <span
+                style="font-family: var(--font-mono); font-size: 72px; font-weight: 900; color: var(--color-mint); line-height: 1;">90%</span>
+              <span
+                style="font-size: 16px; color: #FFFFFF; text-transform: uppercase; font-weight: 800; margin-top: 6px;">Linux
+                Servers</span>
+            </div>
+          </div>
+
+          <!-- Both cards appear immediately side by side -->
+          <div style="display: flex; flex-direction: column; gap: 22px; flex: 1;">
+            <div class="clean-card card-mint-edge" style="padding: 32px 38px;">
+              <h3 style="font-size: 26px; font-weight: 800; color: var(--color-mint); margin-bottom: 8px;">The Cloud
+                Runs on Linux</h3>
+              <p class="card-body-white">
+                Over 90% of web servers run <strong>Linux</strong>—a free open-source system built by volunteers with
+                zero licensing fees.
+              </p>
+            </div>
+            <div class="clean-card card-crimson-edge" style="padding: 32px 38px;">
+              <h3 style="font-size: 26px; font-weight: 800; color: var(--color-crimson); margin-bottom: 8px;">The
+                10-Second Test</h3>
+              <p class="card-body-white">
+                If open-source software died right now, <strong>TikTok, Netflix, Discord, and Google</strong> would all
+                crash in 10 seconds.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           BRIDGE 1: The Big Pivot (Legal -> Illegal)
+           Centered Interstitial Question Slide (Does NOT count in tracker)
+           =============================================================== -->
+      <section class="slide bridge-slide tr-zoom" data-is-bridge="true" data-bgmode="embers" data-steps="0">
+        <div class="bridge-content-wrap">
+          <span class="badge-pill pill-crimson">THE TURNING POINT</span>
+          <h2 class="bridge-giant-question">
+            If the internet runs on free code... why are some apps locked behind a $1,000 paywall?
+          </h2>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 6: The Dark Side: Piracy (SHOWS IMMEDIATELY)
+           =============================================================== -->
+      <section class="slide tr-drop" data-slide-index="6" data-bgmode="embers" data-steps="0">
+        <div>
+          <span class="badge-pill pill-crimson">The Unauthorized Side</span>
+          <h2 class="slide-heading">The Dark Side: Piracy</h2>
+          <p class="lead-subtext">When "Free" means taking something nobody gave you permission to take.</p>
+        </div>
+
+        <div class="feature-banner">
+          <div
+            style="font-family: var(--font-mono); font-size: 15px; color: var(--color-crimson); font-weight: 800; margin-bottom: 16px; letter-spacing: 0.1em;">
+            [ COPYRIGHT VIOLATION &bull; THE FREE BEER SYNDROME ]
+          </div>
+          <p style="font-size: 40px; font-weight: 900; line-height: 1.35; margin-bottom: 24px; color: #FFFFFF;">
+            "You want Photoshop, but Adobe wants the price of an iPhone. So you download it from a shady forum for zero
+            złoty."
+          </p>
+          <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+            <span class="badge-pill pill-crimson" style="font-size: 18px;">You paid: $0</span>
+            <span class="badge-pill pill-crimson" style="font-size: 18px;">Creator got: $0</span>
+            <span class="badge-pill pill-crimson" style="font-size: 18px;">Legal status: Crime</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           BRIDGE 2: Are Pirates Just Greedy?
+           Centered Interstitial Question Slide
+           =============================================================== -->
+      <section class="slide bridge-slide tr-clash" data-is-bridge="true" data-bgmode="datapoints" data-steps="0">
+        <div class="bridge-content-wrap">
+          <span class="badge-pill pill-gold">FOOD FOR THOUGHT</span>
+          <h2 class="bridge-giant-question">
+            Are millions of people who pirate just greedy thieves?
+          </h2>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 7: Why Do People Pirate? (Has 3 Steps)
+           =============================================================== -->
+      <section class="slide tr-flip" data-slide-index="7" data-bgmode="datapoints" data-steps="3">
+        <div>
+          <span class="badge-pill pill-gold">Real Motives</span>
+          <h2 class="slide-heading">Why Do People Pirate?</h2>
+          <p class="lead-subtext">Steam creator Gabe Newell: <em>"Piracy is not a pricing problem. It's a service
+              problem."</em></p>
+        </div>
+
+        <div class="stat-stack">
+          <!-- Step 1 -->
+          <div class="stat-item step-reveal" data-step="1">
+            <div class="stat-top-info">
+              <span>1. Friction &amp; Inconvenience</span>
+              <span class="mint-glow">71%</span>
+            </div>
+            <div class="stat-bar-track">
+              <div class="stat-fill-bar fill-mint"></div>
+            </div>
+            <span style="font-size: 20px; color: #FFFFFF; font-weight: 600;">Pirated files download in 1 click and play
+              offline. Legal software forces logins, launchers, and updates.</span>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="stat-item step-reveal" data-step="2">
+            <div class="stat-top-info">
+              <span>2. "Not Available in Your Country" (Geo-blocking)</span>
+              <span class="gold-glow">54%</span>
+            </div>
+            <div class="stat-bar-track">
+              <div class="stat-fill-bar fill-gold"></div>
+            </div>
+            <span style="font-size: 20px; color: #FFFFFF; font-weight: 600;">Games or movies delayed in Europe for
+              months. If companies refuse to sell it to you, people download it.</span>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="stat-item step-reveal" data-step="3">
+            <div class="stat-top-info">
+              <span>3. Annoying DRM &amp; Worse Performance</span>
+              <span class="cyan-glow">38%</span>
+            </div>
+            <div class="stat-bar-track">
+              <div class="stat-fill-bar fill-cyan"></div>
+            </div>
+            <span style="font-size: 20px; color: #FFFFFF; font-weight: 600;">Heavy anti-piracy code slows down your PC.
+              Ironically, cracked games often run smoother than the paid version!</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           BRIDGE 3: The Ownership Dilemma
+           Centered Interstitial Question Slide
+           =============================================================== -->
+      <section class="slide bridge-slide tr-pan" data-is-bridge="true" data-bgmode="vintage" data-steps="0">
+        <div class="bridge-content-wrap">
+          <span class="badge-pill pill-gold">THE OWNERSHIP DILEMMA</span>
+          <h2 class="bridge-giant-question">
+            If you legally buy something with your own money... do you actually own it?
+          </h2>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 8: Story Time: "DVD Jon" (SHOWS IMMEDIATELY)
+           =============================================================== -->
+      <section class="slide tr-pan" data-slide-index="8" data-bgmode="vintage" data-steps="0">
+        <div>
+          <span class="badge-pill pill-gold">Crazy True Story</span>
+          <h2 class="slide-heading">Story Time: "DVD Jon"</h2>
+          <p class="lead-subtext">Meet Jon Lech Johansen. 15-year-old kid from Norway (fun fact: his mom is Polish!).
+          </p>
+        </div>
+
+        <div class="clean-card card-gold-edge dvd-jon-layout">
+          <!-- Text Story -->
+          <div>
+            <div
+              style="font-family: var(--font-mono); font-size: 16px; color: var(--color-gold); font-weight: 800; margin-bottom: 14px;">
+              NORWAY &bull; 1999 &bull; AGE 15
+            </div>
+            <p style="font-size: 32px; font-weight: 900; line-height: 1.4; margin-bottom: 20px; color: #FFFFFF;">
+              Jon bought DVD movies with his own birthday cash. He put the disc into his Linux computer.
+            </p>
+            <div class="card-action-pill"
+              style="color: var(--color-crimson); border-color: var(--color-crimson); font-size: 18px; margin-bottom: 20px;">
+              Screen: "ERROR. DVDs only play on Windows &amp; Mac. Linux is blocked."
+            </div>
+            <p class="card-body-white" style="font-size: 22px;">
+              Jon was furious: <em>"I bought this movie with my own money. Why am I forbidden from watching it in my own
+                room?!"</em>
+            </p>
+          </div>
+
+          <!-- Real Photo of Jon -->
+          <div class="jon-photo-wrap">
+            <img class="jon-photo" src="https://nrkbeta.no/wp-content/uploads/2017/09/Dvd-jon-620x430.jpg"
+              alt="Jon Lech Johansen in 1999" />
+            <div class="jon-photo-caption">Jon Lech Johansen (15) &bull; NRK Beta 1999</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 9: The Hack Hollywood Sued For (Starts at Step 2/3)
+           =============================================================== -->
+      <section class="slide tr-unfold" data-slide-index="9" data-bgmode="vintage" data-steps="3" data-initial-step="2">
+        <div>
+          <span class="badge-pill pill-mint">The Court Battle</span>
+          <h2 class="slide-heading">The Hack Hollywood Sued For</h2>
+          <p class="lead-subtext">Jon wrote 7 lines of code called <strong>DeCSS</strong> that broke the DVD lock.</p>
+        </div>
+
+        <div class="deck-grid cols-2">
+          <!-- Step 1: Terminal -->
+          <div class="terminal-container step-reveal" data-step="1">
+            <div class="terminal-topbar">
+              <div class="term-light tl-red"></div>
+              <div class="term-light tl-yellow"></div>
+              <div class="term-light tl-green"></div>
+              <span style="font-size: 14px; color: #FFFFFF; font-weight: 700; margin-left: 8px;">decss_core.c
+                (1999)</span>
+            </div>
+            <div class="terminal-code">
+              <span style="color: #64748B;">// Descramble Content Scramble System</span><br>
+              <span style="color: var(--color-crimson);">void</span> <span
+                style="color: var(--color-mint);">DeCSS</span>(byte *key) {<br>
+              &nbsp;&nbsp;unsigned int lfsr = (key[0] &lt;&lt; 16);<br>
+              &nbsp;&nbsp;lfsr = (lfsr &gt;&gt; 1) ^ (-lfsr &amp; <span
+                style="color: var(--color-gold);">0x80000061</span>);<br>
+              &nbsp;&nbsp;key[0] = lfsr &gt;&gt; 16;<br>
+              }<br>
+              <span style="color: #00F59B;">// Result: DVDs can now play on Linux!</span>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 20px; justify-content: center;">
+            <!-- Step 2: Lawsuit & Radio -->
+            <div class="clean-card card-crimson-edge step-reveal" data-step="2" style="padding: 24px 30px;">
+              <h3 style="font-size: 24px; font-weight: 800; color: var(--color-crimson); margin-bottom: 6px;">Hollywood
+                Lawsuit &amp; Radio Protest</h3>
+              <p class="card-body-white">Studios sued Jon. In protest, supporters printed code on T-shirts, and DJs read
+                the 7 lines live on <strong>national radio</strong>!</p>
+            </div>
+            <!-- Step 3: Verdict -->
+            <div class="clean-card card-gold-edge step-reveal" data-step="3" style="padding: 24px 30px;">
+              <h3 style="font-size: 24px; font-weight: 800; color: var(--color-gold); margin-bottom: 6px;">Verdict: NOT
+                GUILTY!</h3>
+              <p class="card-body-white">The court ruled: Jon legally bought the disc. <strong>Code is speech, and
+                  speech is free!</strong></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 10: How Pirates Conquered the Web (SHOWS IMMEDIATELY)
+           =============================================================== -->
+      <section class="slide tr-depth" data-slide-index="10" data-bgmode="network" data-steps="0">
+        <div>
+          <span class="badge-pill pill-crimson">Underground Technology</span>
+          <h2 class="slide-heading">How Pirates Conquered the Web</h2>
+          <p class="lead-subtext">The two weapons that made piracy impossible for police to stop:</p>
+        </div>
+
+        <div class="deck-grid cols-2">
+          <!-- Active P2P Swarm Network Map -->
+          <div class="swarm-network-box">
+            <svg width="100%" height="320" viewBox="0 0 500 320" id="swarm-svg">
+              <line x1="90" y1="90" x2="250" y2="50" stroke="#FF2A6D" stroke-width="3" stroke-dasharray="8" />
+              <line x1="250" y1="50" x2="410" y2="90" stroke="#FF2A6D" stroke-width="3" stroke-dasharray="8" />
+              <line x1="90" y1="90" x2="170" y2="240" stroke="#00F59B" stroke-width="3" stroke-dasharray="8" />
+              <line x1="410" y1="90" x2="330" y2="240" stroke="#00F59B" stroke-width="3" stroke-dasharray="8" />
+              <line x1="170" y1="240" x2="330" y2="240" stroke="#FF2A6D" stroke-width="3" stroke-dasharray="8" />
+
+              <rect x="220" y="125" width="60" height="50" rx="8" fill="#121724" stroke="rgba(255,255,255,0.2)" />
+              <text x="250" y="155" fill="#94A3B8" font-size="12" font-family="monospace" text-anchor="middle"
+                font-weight="bold">SERVER</text>
+              <line x1="210" y1="120" x2="290" y2="180" stroke="#FF2A6D" stroke-width="4" />
+
+              <circle cx="90" cy="90" r="28" fill="#111624" stroke="#FF2A6D" stroke-width="3.5" />
+              <text x="90" y="96" fill="#fff" font-size="12" font-family="monospace" text-anchor="middle"
+                font-weight="bold">WARSAW</text>
+
+              <circle cx="250" cy="50" r="30" fill="#111624" stroke="#00F59B" stroke-width="3.5" />
+              <text x="250" y="56" fill="#00F59B" font-size="13" font-family="monospace" text-anchor="middle"
+                font-weight="bold">SEED</text>
+
+              <circle cx="410" cy="90" r="28" fill="#111624" stroke="#FF2A6D" stroke-width="3.5" />
+              <text x="410" y="96" fill="#fff" font-size="12" font-family="monospace" text-anchor="middle"
+                font-weight="bold">BRAZIL</text>
+
+              <circle cx="170" cy="240" r="30" fill="#111624" stroke="#00F59B" stroke-width="3.5" />
+              <text x="170" y="246" fill="#00F59B" font-size="13" font-family="monospace" text-anchor="middle"
+                font-weight="bold">SEED</text>
+
+              <circle cx="330" cy="240" r="28" fill="#111624" stroke="#FF2A6D" stroke-width="3.5" />
+              <text x="330" y="246" fill="#fff" font-size="12" font-family="monospace" text-anchor="middle"
+                font-weight="bold">SPAIN</text>
+            </svg>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 20px; justify-content: center;">
+            <div class="clean-card card-crimson-edge" style="padding: 28px;">
+              <h3 style="font-size: 24px; font-weight: 800; color: var(--color-crimson); margin-bottom: 6px;">1. The P2P
+                Torrent Swarm</h3>
+              <p class="card-body-white">There is no server! You download 1% from Warsaw, 2% from Brazil, and 3% from
+                your neighbor. You cannot raid a swarm.</p>
+            </div>
+            <div class="clean-card card-mint-edge" style="padding: 28px;">
+              <h3 style="font-size: 24px; font-weight: 800; color: var(--color-mint); margin-bottom: 6px;">2. The Binary
+                Crack (.exe Patch)</h3>
+              <p class="card-body-white">Hackers find the license check <code>if (!paid) exit();</code> and change it to
+                <strong>NOP (do nothing)</strong>. The app runs freely!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 11: The Catch: Nothing is Free (Has 3 Steps)
+           =============================================================== -->
+      <section class="slide tr-alert" data-slide-index="11" data-bgmode="alert" data-steps="3">
+        <div>
+          <span class="badge-pill pill-crimson">The Hidden Cost</span>
+          <h2 class="slide-heading">The Catch: Nothing is Free</h2>
+          <p class="lead-subtext">When you don't pay with money, you pay with your computer's health:</p>
+        </div>
+
+        <div class="deck-grid cols-3">
+          <!-- Step 1: Malware -->
+          <div class="clean-card card-crimson-edge step-reveal" data-step="1">
+            <div class="icon-square is-crimson">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <circle cx="9" cy="9" r="2" />
+                <path d="M15 9h.01" />
+                <path d="M9 15h6" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">Malware &amp; Miners</h3>
+            <p class="card-body-white">
+              That cracked installer silently uses <strong>100% of your graphics card</strong> to mine crypto for a
+              stranger.
+            </p>
+          </div>
+
+          <!-- Step 2: Ransomware -->
+          <div class="clean-card card-crimson-edge step-reveal" data-step="2">
+            <div class="icon-square is-crimson">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">Ransomware</h3>
+            <p class="card-body-white">
+              One bad file locks all your homework, photos, and game saves, demanding <strong>$500 in Bitcoin</strong>.
+            </p>
+          </div>
+
+          <!-- Step 3: Zero Updates -->
+          <div class="clean-card card-crimson-edge step-reveal" data-step="3">
+            <div class="icon-square is-crimson">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">Zero Updates</h3>
+            <p class="card-body-white">
+              No online multiplayer with friends, no bug patches, and the game crashes forever on Chapter 2.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           BRIDGE 4: How Companies Actually Won
+           Centered Interstitial Question Slide
+           =============================================================== -->
+      <section class="slide bridge-slide tr-warp" data-is-bridge="true" data-bgmode="clouds" data-steps="0">
+        <div class="bridge-content-wrap">
+          <span class="badge-pill pill-cyan">THE RESOLUTION</span>
+          <h2 class="bridge-giant-question">
+            How do you defeat piracy without putting millions of teenagers in jail?
+          </h2>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 12: How Companies Finally Won (SHOWS IMMEDIATELY)
+           =============================================================== -->
+      <section class="slide tr-warp" data-slide-index="12" data-bgmode="clouds" data-steps="0">
+        <div>
+          <span class="badge-pill pill-cyan">Business Strategy</span>
+          <h2 class="slide-heading">How Companies Finally Won</h2>
+          <p class="lead-subtext">Lawsuits failed. Changing the business model solved everything:</p>
+        </div>
+
+        <div class="deck-grid cols-2">
+          <div class="clean-card">
+            <div class="icon-square"
+              style="background: rgba(255,255,255,0.08); color: #fff; border: 1.5px solid var(--card-border);">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">The Past: CDs &amp; KeyGens</h3>
+            <p class="card-body-white">
+              Selling software on CDs with a 16-digit code. Hackers made key-generators with techno music in 5 minutes.
+            </p>
+            <div class="card-action-pill" style="color: var(--color-crimson); border-color: var(--color-crimson);">
+              Vulnerable to offline cracks
+            </div>
+          </div>
+
+          <div class="clean-card card-cyan-edge">
+            <div class="icon-square is-cyan">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">The Present: Cloud (SaaS)</h3>
+            <p class="card-body-white">
+              Spotify, Youtube, Netflix. $10/month is cheap and easy. Plus, the app runs on cloud servers—<strong>there
+                is no file on your PC to crack!</strong>
+            </p>
+            <div class="card-action-pill" style="color: var(--color-cyan); border-color: var(--color-cyan);">
+              Protected by cloud architecture
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================================
+           SLIDE 13: Summary: What Did We Learn? (SHOWS IMMEDIATELY)
+           =============================================================== -->
+      <section class="slide tr-warp" data-slide-index="13" data-bgmode="nebula" data-steps="0">
+        <div>
+          <span class="badge-pill pill-mint">Final Takeaway</span>
+          <h2 class="slide-heading">Summary: What Did We Learn?</h2>
+          <p class="lead-subtext">The modern internet was shaped by this clash—here are the 3 final takeaways:</p>
+        </div>
+
+        <div class="deck-grid cols-3">
+          <div class="clean-card card-mint-edge">
+            <div class="icon-square is-mint">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                <path
+                  d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">Open Source Built It</h3>
+            <p class="card-body-white">
+              It built Linux, Git, and web standards. It proved that <strong>sharing blueprints makes the best
+                technology</strong>.
+            </p>
+          </div>
+
+          <div class="clean-card card-crimson-edge">
+            <div class="icon-square is-crimson">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">Piracy Forced Change</h3>
+            <p class="card-body-white">
+              It proved that if you overcharge and lock people out, <strong>the internet will break your door
+                down</strong>.
+            </p>
+          </div>
+
+          <div class="clean-card card-gold-edge">
+            <div class="icon-square is-gold">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4M12 8h.01" />
+              </svg>
+            </div>
+            <h3 class="card-heading-lg">The Final Rule</h3>
+            <p class="card-body-white">
+              <strong>"Free as in Speech"</strong> gives you freedom. <strong>"Free as in Beer"</strong> usually has a
+              virus. Choose wisely!
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 40px; text-align: center;">
+          <span
+            style="font-family: var(--font-mono); font-size: 15px; color: rgba(255, 255, 255, 0.5); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;">
+            Thank you &bull; Questions &amp; Discussion
+          </span>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       CANVAS & HYBRID STEPPING RUNTIME SCRIPT
+       =================================================================== -->
+  <script>
+    const TOTAL_MAIN_SLIDES = 13;
+    let currentSlideIdx = 0; // 0-based index in DOM
+    let currentStep = 0;
+
+    const allSlideEls = Array.from(document.querySelectorAll('.slide'));
+    const presenterBadge = document.getElementById('presenter-badge');
+    const stage = document.getElementById('stage');
+    const ambientLights = document.getElementById('ambient-lights');
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let currentBgMode = 'nebula';
+
+    const AMBIENT_PRESETS = {
+      'nebula': 'radial-gradient(circle at 20% 30%, rgba(0, 245, 155, 0.2) 0%, transparent 60%), radial-gradient(circle at 80% 70%, rgba(167, 139, 250, 0.18) 0%, transparent 60%)',
+      'split': 'radial-gradient(circle at 15% 50%, rgba(255, 42, 109, 0.22) 0%, transparent 55%), radial-gradient(circle at 85% 50%, rgba(0, 245, 155, 0.22) 0%, transparent 55%)',
+      'nodes': 'radial-gradient(circle at 50% 30%, rgba(0, 245, 155, 0.25) 0%, transparent 65%)',
+      'pipeline': 'radial-gradient(circle at 30% 40%, rgba(0, 245, 155, 0.2) 0%, transparent 55%), radial-gradient(circle at 75% 65%, rgba(0, 229, 255, 0.18) 0%, transparent 55%)',
+      'pulse': 'radial-gradient(circle at 25% 40%, rgba(0, 245, 155, 0.22) 0%, transparent 60%), radial-gradient(circle at 80% 70%, rgba(255, 183, 3, 0.2) 0%, transparent 60%)',
+      'embers': 'radial-gradient(circle at 50% 50%, rgba(255, 42, 109, 0.28) 0%, transparent 65%)',
+      'datapoints': 'radial-gradient(circle at 50% 40%, rgba(255, 183, 3, 0.24) 0%, transparent 60%)',
+      'vintage': 'radial-gradient(circle at 80% 50%, rgba(255, 183, 3, 0.28) 0%, transparent 55%), radial-gradient(circle at 20% 50%, rgba(255, 42, 109, 0.16) 0%, transparent 55%)',
+      'network': 'radial-gradient(circle at 20% 40%, rgba(255, 42, 109, 0.22) 0%, transparent 55%), radial-gradient(circle at 80% 60%, rgba(0, 245, 155, 0.22) 0%, transparent 55%)',
+      'alert': 'radial-gradient(circle at 50% 50%, rgba(255, 42, 109, 0.35) 0%, transparent 65%)',
+      'clouds': 'radial-gradient(circle at 50% 40%, rgba(0, 229, 255, 0.25) 0%, transparent 60%)'
+    };
+
+    function resizeStage() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const scale = Math.min(w / 1920, h / 1080);
+      stage.style.transform = `scale(${scale})`;
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeStage);
+    resizeStage();
+
+    // =====================================================================
+    // STEPPING & REVEAL NAVIGATION
+    // =====================================================================
+    function getSlideEl(idx) {
+      return allSlideEls[idx];
+    }
+
+    function getTotalSteps(slideEl) {
+      return parseInt(slideEl.getAttribute('data-steps') || '0');
+    }
+
+    function updateStepVisuals(slideEl) {
+      const steps = slideEl.querySelectorAll('.step-reveal');
+      steps.forEach(el => {
+        const stepNum = parseInt(el.getAttribute('data-step'));
+        if (stepNum <= currentStep) {
+          el.classList.add('revealed');
+        } else {
+          el.classList.remove('revealed');
+        }
+      });
+
+      // Update HUD Counter (Bridge slides do NOT increment the main count)
+      const isBridge = slideEl.getAttribute('data-is-bridge') === 'true';
+      if (isBridge) {
+        presenterBadge.textContent = `INTERLUDE • QUESTION`;
+      } else {
+        const mainIdx = slideEl.getAttribute('data-slide-index') || '1';
+        const totalSteps = getTotalSteps(slideEl);
+        presenterBadge.textContent = `${String(mainIdx).padStart(2, '0')} / ${String(TOTAL_MAIN_SLIDES).padStart(2, '0')}${totalSteps > 0 ? ` • Step ${currentStep}/${totalSteps}` : ''}`;
+      }
+    }
+
+    function goToSlide(targetIdx, startAtMaxStep = false) {
+      if (targetIdx < 0) targetIdx = 0;
+      if (targetIdx >= allSlideEls.length) targetIdx = 0;
+
+      currentSlideIdx = targetIdx;
+      const activeEl = getSlideEl(currentSlideIdx);
+      const totalSteps = getTotalSteps(activeEl);
+      const initialStep = parseInt(activeEl.getAttribute('data-initial-step') || '0');
+
+      currentStep = startAtMaxStep ? totalSteps : initialStep;
+
+      allSlideEls.forEach((s, idx) => {
+        s.classList.remove('active', 'prev');
+        if (idx === currentSlideIdx) {
+          s.classList.add('active');
+          currentBgMode = s.getAttribute('data-bgmode') || 'nebula';
+          ambientLights.style.background = AMBIENT_PRESETS[currentBgMode] || AMBIENT_PRESETS['nebula'];
+        } else if (idx < currentSlideIdx) {
+          s.classList.add('prev');
+        }
+      });
+
+      updateStepVisuals(activeEl);
+    }
+
+    // Step Forward
+    function stepNext() {
+      const activeEl = getSlideEl(currentSlideIdx);
+      const totalSteps = getTotalSteps(activeEl);
+
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateStepVisuals(activeEl);
+      } else {
+        // Advance to next slide in DOM
+        if (currentSlideIdx < allSlideEls.length - 1) {
+          goToSlide(currentSlideIdx + 1, false);
+        } else {
+          goToSlide(0, false);
+        }
+      }
+    }
+
+    // Step Backward
+    function stepPrev() {
+      const activeEl = getSlideEl(currentSlideIdx);
+      const minStep = parseInt(activeEl.getAttribute('data-initial-step') || '0');
+
+      if (currentStep > minStep) {
+        currentStep--;
+        updateStepVisuals(activeEl);
+      } else {
+        if (currentSlideIdx > 0) {
+          goToSlide(currentSlideIdx - 1, true);
+        }
+      }
+    }
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'ArrowRight':
+        case 'Space':
+        case 'Enter':
+        case 'PageDown':
+          e.preventDefault();
+          stepNext();
+          break;
+        case 'ArrowLeft':
+        case 'Backspace':
+        case 'PageUp':
+          e.preventDefault();
+          stepPrev();
+          break;
+        case 'f':
+        case 'F':
+          toggleFullscreen();
+          break;
+        case 'Home':
+          goToSlide(0, false);
+          break;
+        case 'End':
+          goToSlide(allSlideEls.length - 1, true);
+          break;
+      }
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => { });
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // =====================================================================
+    // CANVAS SIMULATION ENGINE
+    // =====================================================================
+    const cosmicStars = [];
+    for (let i = 0; i < 65; i++) {
+      cosmicStars.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        radius: Math.random() * 2 + 1,
+        speed: Math.random() * 0.4 + 0.1,
+        color: ['#00F59B', '#FF2A6D', '#FFB703', '#A78BFA', '#FFFFFF'][Math.floor(Math.random() * 5)],
+        alpha: Math.random() * 0.7 + 0.3
+      });
+    }
+
+    const embers = [];
+    for (let i = 0; i < 45; i++) {
+      embers.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        size: Math.random() * 3 + 1.5,
+        speedY: Math.random() * 1.2 + 0.6,
+        speedX: (Math.random() - 0.5) * 0.8,
+        alpha: Math.random() * 0.7 + 0.3
+      });
+    }
+
+    const nodes = [];
+    for (let i = 0; i < 35; i++) {
+      nodes.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        radius: Math.random() * 3 + 2
+      });
+    }
+
+    const packets = [];
+    for (let i = 0; i < 22; i++) {
+      packets.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 3,
+        vy: (Math.random() - 0.5) * 3,
+        size: Math.random() * 3 + 2,
+        color: Math.random() > 0.5 ? '#00F59B' : '#FF2A6D'
+      });
+    }
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (currentBgMode === 'embers' || currentBgMode === 'alert') {
+        embers.forEach(e => {
+          e.y -= e.speedY;
+          e.x += e.speedX;
+          if (e.y < 0) e.y = canvas.height + 10;
+          if (e.x < 0) e.x = canvas.width;
+          if (e.x > canvas.width) e.x = 0;
+
+          ctx.fillStyle = '#FF2A6D';
+          ctx.shadowColor = '#FF2A6D';
+          ctx.shadowBlur = 12;
+          ctx.globalAlpha = e.alpha;
+          ctx.beginPath();
+          ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.shadowBlur = 0;
+      } else if (currentBgMode === 'nodes') {
+        for (let i = 0; i < nodes.length; i++) {
+          nodes[i].x += nodes[i].vx;
+          nodes[i].y += nodes[i].vy;
+
+          if (nodes[i].x < 0 || nodes[i].x > canvas.width) nodes[i].vx *= -1;
+          if (nodes[i].y < 0 || nodes[i].y > canvas.height) nodes[i].vy *= -1;
+
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 150) {
+              ctx.strokeStyle = `rgba(0, 245, 155, ${0.2 * (1 - dist / 150)})`;
+              ctx.lineWidth = 1.5;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+
+          ctx.fillStyle = '#00F59B';
+          ctx.shadowColor = '#00F59B';
+          ctx.shadowBlur = 10;
+          ctx.beginPath();
+          ctx.arc(nodes[i].x, nodes[i].y, nodes[i].radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+      } else if (currentBgMode === 'network') {
+        packets.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 14;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.shadowBlur = 0;
+      } else {
+        cosmicStars.forEach(s => {
+          s.y -= s.speed;
+          if (s.y < 0) s.y = canvas.height;
+
+          ctx.fillStyle = s.color;
+          ctx.shadowColor = s.color;
+          ctx.shadowBlur = 8;
+          ctx.globalAlpha = s.alpha;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 1;
+      }
+
+      requestAnimationFrame(renderCanvas);
+    }
+    renderCanvas();
+
+    // Start on Slide 1
+    goToSlide(0, false);
+  </script>
+</body>
+
+</html>
